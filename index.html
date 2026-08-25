@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Digital Library - TYCS Mini Project</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f4f6f8;
+        color: #222;
+    }
+
+    header {
+        background: #2c3e50;
+        color: white;
+        text-align: center;
+        padding: 25px 15px;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 30px;
+    }
+
+    header p {
+        margin: 8px 0 0;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .login-box,
+    .search-box,
+    .book {
+        background: white;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .login-box h2,
+    .search-box h2 {
+        margin-top: 0;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 7px;
+        font-size: 16px;
+    }
+
+    button,
+    .download-btn {
+        border: none;
+        padding: 11px 16px;
+        margin: 5px 3px;
+        border-radius: 7px;
+        cursor: pointer;
+        font-size: 15px;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .login-btn {
+        background: #3498db;
+        color: white;
+        width: 100%;
+    }
+
+    .borrow-btn {
+        background: #27ae60;
+        color: white;
+    }
+
+    .view-btn {
+        background: #f39c12;
+        color: white;
+    }
+
+    .download-btn {
+        background: #8e44ad;
+        color: white;
+    }
+
+    button:hover,
+    .download-btn:hover {
+        opacity: 0.85;
+    }
+
+    .book h3 {
+        color: #2c3e50;
+        margin-top: 0;
+    }
+
+    .book p {
+        line-height: 1.5;
+    }
+
+    #loginMessage {
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    #welcome {
+        display: none;
+        background: #dff0d8;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        color: #216b21;
+        font-weight: bold;
+    }
+
+    .no-result {
+        text-align: center;
+        font-weight: bold;
+        display: none;
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>📚 Digital Library</h1>
+    <p>TYCS Mini Project</p>
+</header>
+
+<div class="container">
+
+    <!-- LOGIN -->
+    <div class="login-box">
+        <h2>🔐 Login</h2>
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Enter Username"
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter Password"
+        >
+
+        <button class="login-btn" onclick="login()">
+            Login
+        </button>
+
+        <p id="loginMessage"></p>
+    </div>
+
+    <div id="welcome">
+        ✅ Login successful! Welcome to Digital Library.
+    </div>
+
+    <!-- SEARCH -->
+    <div class="search-box">
+        <h2>🔎 Search Books</h2>
+
+        <input
+            type="text"
+            id="search"
+            placeholder="Search book..."
+            onkeyup="searchBooks()"
+        >
+    </div>
+
+    <!-- BOOK 1 -->
+    <div class="book">
+        <h3>📖 Computer Fundamentals</h3>
+
+        <p>
+            Learn the basic concepts of computers,
+            hardware, software and operating systems.
+        </p>
+
+        <button
+            class="borrow-btn"
+            onclick="borrowBook('Computer Fundamentals')">
+            📚 Borrow
+        </button>
+
+        <button
+            class="view-btn"
+            onclick="viewBook('Computer Fundamentals')">
+            👁️ View
+        </button>
+
+        <!-- HTTPS PDF LINK - NO BLOB -->
+        <a
+            class="download-btn"
+            href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+            target="_blank"
+            rel="noopener">
+            📥 Download PDF
+        </a>
+    </div>
+
+    <!-- BOOK 2 -->
+    <div class="book">
+        <h3>📘 Web Technology</h3>
+
+        <p>
+            Introduction to HTML, CSS, JavaScript
+            and modern web development.
+        </p>
+
+        <button
+            class="borrow-btn"
+            onclick="borrowBook('Web Technology')">
+            📚 Borrow
+        </button>
+
+        <button
+            class="view-btn"
+            onclick="viewBook('Web Technology')">
+            👁️ View
+        </button>
+
+        <a
+            class="download-btn"
+            href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+            target="_blank"
+            rel="noopener">
+            📥 Download PDF
+        </a>
+    </div>
+
+    <!-- BOOK 3 -->
+    <div class="book">
+        <h3>📗 Database Management System</h3>
+
+        <p>
+            Learn databases, SQL, tables,
+            queries and database management.
+        </p>
+
+        <button
+            class="borrow-btn"
+            onclick="borrowBook('Database Management System')">
+            📚 Borrow
+        </button>
+
+        <button
+            class="view-btn"
+            onclick="viewBook('Database Management System')">
+            👁️ View
+        </button>
+
+        <a
+            class="download-btn"
+            href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+            target="_blank"
+            rel="noopener">
+            📥 Download PDF
+        </a>
+    </div>
+
+    <p class="no-result" id="noResult">
+        ❌ No book found.
+    </p>
+
+</div>
+
+<script>
+
+function login() {
+
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    let message = document.getElementById("loginMessage");
+
+    /*
+       Demo Login:
+       Username: admin
+       Password: 1234
+    */
+
+    if (username === "admin" && password === "1234") {
+
+        message.innerHTML = "✅ Login Successful!";
+        message.style.color = "green";
+
+        document.getElementById("welcome").style.display = "block";
+
+    } else {
+
+        message.innerHTML = "❌ Invalid Username or Password!";
+        message.style.color = "red";
+
+        document.getElementById("welcome").style.display = "none";
+    }
+}
+
+
+function borrowBook(bookName) {
+
+    alert(
+        "📚 Book Borrowed Successfully!\n\nBook: "
+        + bookName
+    );
+}
+
+
+function viewBook(bookName) {
+
+    alert(
+        "👁️ Viewing Book\n\n"
+        + bookName
+        + "\n\nPDF is available using the Download PDF button."
+    );
+}
+
+
+function searchBooks() {
+
+    let searchText =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
+
+    let books =
+        document.getElementsByClassName("book");
+
+    let found = false;
+
+    for (let i = 0; i < books.length; i++) {
+
+        let bookText =
+            books[i].innerText.toLowerCase();
+
+        if (bookText.includes(searchText)) {
+
+            books[i].style.display = "block";
+            found = true;
+
+        } else {
+
+            books[i].style.display = "none";
+        }
+    }
+
+    document.getElementById("noResult").style.display =
+        found ? "none" : "block";
+}
+
+</script>
+
+</body>
+</html>
